@@ -12,6 +12,7 @@ function ProductListItem(props) {
         <h2 className = "card-title">{props.name}</h2>
         <h4 className = "card-text">{ ' $' + realPrice.toFixed(2)}</h4>
         <p className = "card-text">{props.desc}</p>
+        <button onClick = {() => props.setView('details', { id: props.id })} className = "btn btn-success">Details</button>
       </div>
     </div>
   );
@@ -26,7 +27,10 @@ function ProductList(props) {
           price = {prod.price}
           image = {prod.image}
           desc = {prod.shortDescription}
-        /></div>
+          setView = {props.setView}
+          id = {prod.id}
+        />
+      </div>
 
     );
 
