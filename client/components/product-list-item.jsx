@@ -1,12 +1,16 @@
 import React from 'react';
 
 function ProductListItem(props) {
+  const imageStyle = {
+    height: '250px'
+  };
+  const realPrice = props.price / 100;
   return (
     <div className = "card">
-      <img className = "card-img-top" src = {props.image}></img>
+      <img className = "card-img-top" style ={imageStyle}src = {props.image}></img>
       <div className ="card-body">
         <h2 className = "card-title">{props.name}</h2>
-        <h4 className = "card-text">{ ' $' + props.price}</h4>
+        <h4 className = "card-text">{ ' $' + realPrice.toFixed(2)}</h4>
         <p className = "card-text">{props.desc}</p>
       </div>
     </div>
