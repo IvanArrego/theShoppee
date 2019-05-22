@@ -4,6 +4,5 @@
   set_exception_handler("error_handler");
   if (!$conn){
     throw new Exception(mysqli_connect_error($conn));
-      exit();
   };
 ?>
