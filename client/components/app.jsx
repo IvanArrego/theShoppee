@@ -37,10 +37,14 @@ export default class App extends React.Component {
   listOrDesc() {
     if (this.state.view.name === 'catalog') {
       return (
-        <ProductList products = {this.state.products} setView = {this.setView}/>,
-        <ProductDetails/>
+        <ProductList products = {this.state.products} setView = {this.setView}/>
+      );
+    } else {
+      return (
+        <ProductDetails setView = {this.setView}/>
       );
     }
+
   }
 
   render() {
