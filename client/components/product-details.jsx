@@ -27,7 +27,7 @@ export default class ProductDetails extends React.Component {
       return null;
     } else {
       const imageStyle = {
-        height: '250px'
+        height: '500px'
       };
       const realPrice = this.state.product.price / 100;
       return (
@@ -37,6 +37,7 @@ export default class ProductDetails extends React.Component {
           <div className ="card-body">
             <h2 className = "card-title">{this.state.product.name}</h2>
             <h4 className = "card-text">{ ' $' + realPrice.toFixed(2)}</h4>
+            <p className = "card-text">{this.state.product.shortDescription}</p>
             <p className = "card-text">{this.state.product.longDescription}</p>
           </div>
         </div>
