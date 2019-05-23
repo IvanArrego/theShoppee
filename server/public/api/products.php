@@ -3,28 +3,34 @@
   require_once("db_connection.php");
   set_exception_handler("error_handler");
   startup();
-  if (!$conn){
-    throw new Exception(mysqli_connect_error($conn));
-  };
-  $query = "SELECT * FROM `products` WHERE `price` > 2000";
-
-  $result = mysqli_query($conn, $query);
-
-  if (!$result){
-    print ("error" . mysqli_error($conn));
-    exit();
+  if (empty($_GET['id'])) {
+    $output = file_get_contents('dummy-products-list.json');
+    print($output);
+  } else {
+    readfile('dummy-product-details.json');
   }
-  $output = [
-    "data" => [] 
-];
+//   if (!$conn){
+//     throw new Exception(mysqli_connect_error($conn));
+//   };
+//   $query = "SELECT * FROM `products`";
 
-while($row =  mysqli_fetch_assoc ( $result )){   
-    array_push($output["data"],$row);
-}
+//   $result = mysqli_query($conn, $query);
 
-$json_output = json_encode($output);
+//   if (!$result){
+//     print ("error" . mysqli_error($conn));
+//     exit();
+//   }
+//   $output = [
 
-print $json_output;
+// ];
+
+// while($row =  mysqli_fetch_assoc ( $result )){   
+//     array_push($output,$row);
+// }
+
+// $json_output = json_encode($output);
+
+// print $json_output;
 
 
 ?>
