@@ -27,7 +27,8 @@ export default class ProductDetails extends React.Component {
       return null;
     } else {
       const imageStyle = {
-        height: '500px'
+        height: '500px',
+        display: 'inline-block'
       };
       const realPrice = this.state.product.price / 100;
       return (
