@@ -13,19 +13,42 @@ export default class App extends React.Component {
         params: {
 
         }
-      }
+      },
+      cart: []
     };
     this.setView = this.setView.bind(this);
     this.listOrDesc = this.listOrDesc.bind(this);
+    this.addToCart = this.addToCart.bind(this);
+
   }
   componentDidMount() {
     this.getProducts();
+    this.getCartItems();
   }
   getProducts() {
     fetch('/api/products.php')
       .then(response => response.json())
       .then(newProducts => this.setState({
         products: this.state.products.concat(newProducts)
+      }));
+  }
+  getCartItems() {
+    fetch('/api/cart.php')
+      .then(response => response.json())
+      .then(currentCartItems => this.setState({
+        cart: currentCartItems
+      }));
+  }
+  addToCart(product) {
+    const postToCart = {
+      method: 'POST',
+      body: JSON.stringify(product),
+      headers: { 'Content-type': 'application/json' }
+    };
+    fetch('/api/cart.php', postToCart)
+      .then(response => response.json())
+      .then(addedCartItem => this.setState({
+        cart: this.state.cart.concat(addedCartItem)
       }));
   }
 
@@ -41,17 +64,17 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <ProductDetails setView = {this.setView}/>
+        <ProductDetails setView = {this.setView} addProduct = {this.addToCart} />
       );
     }
 
   }
 
   render() {
-
+    const cartCount = this.state.cart.length;
     return (
       <div className="container">
-        <Header/>
+        <Header items = {cartCount}/>
         <this.listOrDesc/>
       </div>
 
