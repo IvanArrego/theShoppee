@@ -15,7 +15,6 @@
     exit();
   }
   $output = [
-    "success" => false,
     "data" => [] 
 ];
 
