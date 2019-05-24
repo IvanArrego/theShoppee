@@ -4,11 +4,15 @@ function CartSummaryItem(props) {
   const imageStyle = {
     height: '250px'
   };
+  const cardStyle = {
+    height: '200px'
+  };
+
   const realPrice = props.price / 100;
   return (
-    <div className = "card">
-      <img className = "card-img-top" style ={imageStyle}src = {props.image}></img>
-      <div className ="card-body">
+    <div className = "card" >
+      <img className = "card-img-top" style = {imageStyle} src = {props.image}></img>
+      <div className ="card-body" style = {cardStyle} >
         <h2 className = "card-title">{props.name}</h2>
         <h4 className = "card-text">{ ' $' + realPrice.toFixed(2)}</h4>
         <p className = "card-text">{props.desc}</p>
@@ -45,11 +49,13 @@ function CartSummary(props) {
     let totalPrice = '$' + itemTotal / 100;
     return (
 
-      <div className = "row">
+      <div>
+        <h2>Cart Summary</h2>
+        <h3>Total Price:{totalPrice} </h3>
         <button onClick = {() => props.setView('catalog', { })}>Back to Catalog</button>
-        <h1>Cart Summary</h1>
-        <h1>Total Price:{totalPrice} </h1>
-        {cartItems}
+        <div className = "row">
+          {cartItems}
+        </div>
       </div>
     );
   } else {
