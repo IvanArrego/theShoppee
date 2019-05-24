@@ -20,6 +20,7 @@ function CartSummaryItem(props) {
 function CartSummary(props) {
   if (props.items >= 1) {
     const cartItems = props.products.map(prod => {
+
       return (
         <div className="col-md-4" key = {prod.id}>
           <CartSummaryItem
@@ -35,10 +36,19 @@ function CartSummary(props) {
       );
 
     });
+    let itemTotal = 0;
+    for (let item of cartItems) {
+
+      let prices = item.props.children.props.price;
+      itemTotal += prices;
+    }
+    let totalPrice = '$' + itemTotal / 100;
     return (
+
       <div className = "row">
+        <button onClick = {() => props.setView('catalog', { })}>Back to Catalog</button>
         <h1>Cart Summary</h1>
-        <h1>Total Price: </h1>
+        <h1>Total Price:{totalPrice} </h1>
         {cartItems}
       </div>
     );
@@ -49,6 +59,7 @@ function CartSummary(props) {
       );
     }
     );
+
     return (
       <div className = "row">
         {cartItems}

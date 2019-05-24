@@ -60,6 +60,7 @@ export default class App extends React.Component {
   }
   listOrDesc() {
     const cartCount = this.state.cart.length;
+
     if (this.state.view.name === 'catalog') {
       return (
         <ProductList products = {this.state.products} setView = {this.setView}/>
@@ -70,7 +71,7 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <CartSummary items = {cartCount} products = {this.state.cart} />
+        <CartSummary items = {cartCount} products = {this.state.cart} setView = {this.setView} />
       );
     }
 
