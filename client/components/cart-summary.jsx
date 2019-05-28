@@ -56,6 +56,7 @@ function CartSummary(props) {
         <div className = "row">
           {cartItems}
         </div>
+        <button onClick = {() => props.setView('checkout', { })}>Checkout</button>
       </div>
     );
   } else {
