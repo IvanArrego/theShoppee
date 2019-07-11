@@ -8,7 +8,7 @@ export default class ProductDetails extends React.Component {
     };
   }
   getProductID() {
-    fetch('/api/products.php/?id=' + this.props.id)
+    fetch('/api/products.php?id=' + this.props.viewId)
       .then(response => response.json())
       .then(product => {
         this.setState({
@@ -19,7 +19,6 @@ export default class ProductDetails extends React.Component {
 
   componentDidMount() {
     this.getProductID();
-
   }
 
   render() {
@@ -37,18 +36,18 @@ export default class ProductDetails extends React.Component {
       const inlineStyle = {
         display: 'inline-block'
       };
-      const realPrice = this.state.product.price / 100;
+      const realPrice = parseInt(this.state.product[0].price / 100);
       return (
 
         <div>
           <button onClick = {() => this.props.setView('catalog', {})} className = "btn btn-success">Go back</button>
           <div className = "card" style = {cardBodyStyle}>
-            <img className = "card-img-top" style ={imageStyle} src = {this.state.product.image}></img>
-            <h2 className = "card-title" style ={inlineStyle}>{this.state.product.name}</h2>
+            <img className = "card-img-top" style ={imageStyle} src = {this.state.product[0].image}></img>
+            <h2 className = "card-title" style ={inlineStyle}>{this.state.product[0].name}</h2>
             <h4 className = "card-text" style ={inlineStyle}>{ ' $' + realPrice.toFixed(2)}</h4>
-            <p className = "card-text" style ={inlineStyle}>{this.state.product.shortDescription}</p>
+            <p className = "card-text" style ={inlineStyle}>{this.state.product[0].shortDescription}</p>
             <div className ="card-body" >
-              <p className = "card-text">{this.state.product.longDescription}</p>
+              <p className = "card-text">{this.state.product[0].longDescription}</p>
             </div>
             <button onClick = {() => this.props.addProduct(this.state.product)} className = "btn btn-success">Add To Cart</button>
           </div>

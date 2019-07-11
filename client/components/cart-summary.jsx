@@ -8,7 +8,7 @@ function CartSummaryItem(props) {
     height: '200px'
   };
 
-  const realPrice = props.price / 100;
+  const realPrice = parseInt(props.price / 100);
   return (
     <div className = "card" >
       <img className = "card-img-top" style = {imageStyle} src = {props.image}></img>
@@ -43,7 +43,7 @@ function CartSummary(props) {
     let itemTotal = 0;
     for (let item of cartItems) {
 
-      let prices = item.props.children.props.price;
+      let prices = parseInt(item.props.children.props.price);
       itemTotal += prices;
     }
     let totalPrice = '$' + itemTotal / 100;
