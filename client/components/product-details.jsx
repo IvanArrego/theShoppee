@@ -31,7 +31,9 @@ export default class ProductDetails extends React.Component {
         width: '600px'
       };
       const cardBodyStyle = {
-        width: '600px'
+        width: '600px',
+        left: '50%',
+        transform: 'translate(-50%)'
       };
       const inlineStyle = {
         display: 'inline-block'
