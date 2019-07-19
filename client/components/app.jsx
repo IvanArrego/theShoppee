@@ -4,6 +4,7 @@ import ProductList from './product-list-item';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
+import CartCheckoutSummary from './checkout-cart-summary';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -107,7 +108,10 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <CheckoutForm setView = {this.setView} order ={this.placeOrder} />
+        <div>
+          <CartCheckoutSummary delete = {this.removeItem} items = {cartCount} products = {this.state.cart} setView = {this.setView} />
+          <CheckoutForm items = {cartCount} products = {this.state.cart} cart = {this.state.cart} setView = {this.setView} order ={this.placeOrder} />
+        </div>
       );
     }
 

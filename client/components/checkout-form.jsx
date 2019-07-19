@@ -1,5 +1,4 @@
 import React from 'react';
-
 export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
@@ -11,7 +10,6 @@ export default class CheckoutForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClear = this.handleClear.bind(this);
-
   }
   handleChange(event) {
     this.setState({
@@ -23,18 +21,17 @@ export default class CheckoutForm extends React.Component {
     this.props.order(this.state);
     this.setState({
       name: '',
-      course: '',
-      grade: ''
+      credit: '',
+      address: ''
     });
   }
   handleClear() {
     this.setState({
       name: '',
-      course: '',
-      grade: ''
+      credit: '',
+      address: ''
     });
   }
-
   render() {
     return (
       <form onSubmit={this.handleSubmit} onReset = {this.handleClear}>
@@ -46,6 +43,7 @@ export default class CheckoutForm extends React.Component {
         <input className = "btn btn-success" type="submit" value="Submit"></input>
         <input className = "btn btn-danger" type="reset" value="Reset"></input>
       </form>
+
     );
   }
 }
