@@ -1,0 +1,63 @@
+.navbar-brand {
+    display: inline-block;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+}
+.noselect {
+    user-select: none;
+}
+.pointer-hover {
+    cursor: pointer;
+}
+.header-font {
+    font-family: 'Rubik Mono One', 'Helvetica Neue', 'Helvetica', sans-serif;
+}
+.cart-quantity {
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    background-color: blue;
+    border-radius: 10%;
+  }
+  .home-background {
+    position: relative;
+    z-index: 1;
+  }
+  .home-background::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background-image: url("./images/takethis-2.png");
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .store-background{
+      background-image: url("./images/merchant-background.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 100%;
+      width: 100%;
+  }
+  .sword-background{
+    background-image: url("./images/sword2.png");
+    height: 300px;
+    width: 300px;
+    z-index: 1;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%);
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  @font-face {
+  font-family: gameFont;
+  src: url("./fonts/retganon.ttf");
+}

@@ -1,10 +1,12 @@
 import React from 'react';
 import Header from './header';
+import Home from './home-page';
 import ProductList from './product-list-item';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
-import CheckoutForm from './checkout-form';
-import CartCheckoutSummary from './checkout-cart-summary';
+import CheckoutForm from './checkout-cart-summary';
+import Modal from 'react-modal';
+Modal.setAppElement('#root');
 
 export default class App extends React.Component {
   constructor(props) {
@@ -12,7 +14,7 @@ export default class App extends React.Component {
     this.state = {
       products: [],
       view: {
-        name: 'catalog',
+        name: 'home',
         params: {
 
         }
@@ -24,7 +26,6 @@ export default class App extends React.Component {
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.removeItem = this.removeItem.bind(this);
-
   }
   componentDidMount() {
     this.getProducts();
@@ -69,9 +70,20 @@ export default class App extends React.Component {
 
   }
   placeOrder(order) {
+    let cartOrder = this.state.cart;
+    let orderTransaction = {
+      name: order.name,
+      address: order.address,
+      email: order.email,
+      phone: order.phone,
+      creditCard: order.creditCard,
+      cvv: order.cvv,
+      expiration: order.expiration,
+      cart: JSON.stringify(cartOrder)
+    };
     const checkoutCart = {
       method: 'POST',
-      body: JSON.stringify({ cart: this.state.cart, name: order.name, address: order.address, creditCard: order.creditCard }),
+      body: JSON.stringify(orderTransaction),
       headers: { 'Content-type': 'application/json' }
     };
     fetch('/api/orders.php', checkoutCart)
@@ -93,14 +105,25 @@ export default class App extends React.Component {
   }
   listOrDesc() {
     const cartCount = this.state.cart.length;
-
-    if (this.state.view.name === 'catalog') {
+    if (this.state.view.name === 'home') {
       return (
-        <ProductList products = {this.state.products} setView = {this.setView}/>
+        <Home setView = {this.setView} click = {this.homePageClick}/>
+      );
+    } else if (this.state.view.name === 'catalog') {
+      const spacing = {
+        marginLeft: '50px',
+        marginRight: '50px'
+      };
+      return (
+        <div className='store-background'>
+          <div style={spacing}>
+            <ProductList products = {this.state.products} setView = {this.setView}/>
+          </div>
+        </div>
       );
     } else if (this.state.view.name === 'details') {
       return (
-        <ProductDetails setView = {this.setView} viewId = {this.state.view.params.id} addProduct = {this.addToCart} />
+        <ProductDetails setView = {this.setView} viewId = {this.state.view.params.id} addProduct = {this.addToCart} cart = {this.state.cart} />
       );
     } else if (this.state.view.name === 'cart') {
       return (
@@ -109,8 +132,7 @@ export default class App extends React.Component {
     } else {
       return (
         <div>
-          <CartCheckoutSummary delete = {this.removeItem} items = {cartCount} products = {this.state.cart} setView = {this.setView} />
-          <CheckoutForm items = {cartCount} products = {this.state.cart} cart = {this.state.cart} setView = {this.setView} order ={this.placeOrder} />
+          <CheckoutForm order ={this.placeOrder} cart = {this.state.cart} delete = {this.removeItem} items = {cartCount} products = {this.state.cart} setView = {this.setView} />
         </div>
       );
     }
@@ -119,7 +141,7 @@ export default class App extends React.Component {
   render() {
     const cartCount = this.state.cart.length;
     return (
-      <div className="container">
+      <div >
         <Header items = {cartCount} setView = {this.setView}/>
         <this.listOrDesc />
       </div>
