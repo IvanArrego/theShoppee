@@ -20,13 +20,13 @@ function ProductListItem(props) {
   };
   const realPrice = props.price / 100;
   return (
-    <div className = "card" style = {shadow}>
-      <img className = "card-img-top" style ={imageStyle}src = {props.image}></img>
-      <div className ="card-body" style ={cardStyle}>
-        <h2 className = "card-title">{props.name}</h2>
-        <h4 className = "card-text">{ ' $' + realPrice.toFixed(2)}</h4>
-        <p className = "card-text">{props.desc}</p>
-        <button type='button'style ={buttonStyle} onClick = {() => props.setView('details', { id: props.id })} className = "btn btn-block btn-info">Details</button>
+    <div className="card" style={shadow}>
+      <img className="card-img-top" style={imageStyle} src={props.image}></img>
+      <div className="card-body" style={cardStyle}>
+        <h2 className="card-title">{props.name}</h2>
+        <h4 className="card-text">{ ' $' + realPrice.toFixed(2)}</h4>
+        <p className="card-text">{props.desc}</p>
+        <button type="button" style={buttonStyle} onClick={()=>props.setView('details', { id: props.id })} className="btn btn-block btn-info">Details</button>
       </div>
     </div>
   );
@@ -47,7 +47,7 @@ function ProductList(props) {
   };
   const productItem = props.products.map(prod => {
     return (
-      <div style={cardSpacing} className="col-md-3" key = {prod.id}>
+      <div style={cardSpacing} className="col-md-3" key={prod.id}>
         <ProductListItem
           name = {prod.name}
           price = {prod.price}
@@ -59,12 +59,11 @@ function ProductList(props) {
       </div>
 
     );
-
   });
   return (
     <div>
-      <div style = {message}>Welcome to our shop traveler! Here you will find rare and powerful items to help you along your quest. Please note that there is a limit of one of each item per order.</div>
-      <div className = "row">
+      <div style={message}>Welcome to our shop traveler! Here you will find rare and powerful items to help you along your quest. Please note that there is a limit of one of each item per order.</div>
+      <div className="row">
         {productItem}
       </div>
     </div>

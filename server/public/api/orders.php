@@ -29,9 +29,10 @@ $credit_card = $order['creditCard'];
 $credit_card_exp = $order['expiration'];
 $credit_card_cvv = $order['cvv'];
 $order_items = $order['cart'];
+$escape_order_items = addslashes($order_items);
 $output = [];
 
-$query = "INSERT INTO `orders` (`customerName`, `customerAddress`, `customerEmail`, `customerPhone`, `customerCreditCard`,`customerCVV`, `customerExp`, `customerOrder`) VALUES ('$name', '$address','$email', '$phone', '$credit_card', '$credit_card_exp', '$credit_card_cvv', '$order_items')";
+$query = "INSERT INTO `orders` (`customerName`, `customerAddress`, `customerEmail`, `customerPhone`, `customerCreditCard`,`customerCVV`, `customerExp`, `customerOrder`) VALUES ('$name', '$address','$email', '$phone', '$credit_card', '$credit_card_exp', '$credit_card_cvv', '$escape_order_items')";
 $result = mysqli_query($conn, $query);
 
 if(!$result){

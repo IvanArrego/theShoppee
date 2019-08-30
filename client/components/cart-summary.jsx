@@ -21,7 +21,7 @@ class CartSummaryItem extends React.Component {
             <div className="h3 card-font">{this.props.name}</div>
             <div className="h6">{this.props.desc}</div>
             <div className="h6 description-font text-muted">${realPrice.toFixed(2)}</div>
-            <button className="btn btn-lg btn-block card-font btn-danger" onClick = {this.deleteItem}>Delete</button>
+            <button className="btn btn-lg btn-block card-font btn-danger" onClick={this.deleteItem}>Delete</button>
           </div>
         </div>
       </div>

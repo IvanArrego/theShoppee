@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Card, CardTitle, CardText, CardImg, CardBody, CardSubtitle, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 export default class ProductDetails extends React.Component {
   constructor(props) {
@@ -97,23 +97,22 @@ export default class ProductDetails extends React.Component {
       const realPrice = parseFloat(this.state.product[0].price / 100);
       return (
         <div>
-          <div className = "card" style = {cardBodyStyle}>
-            <img className = "card-img-top" style ={imageStyle} src = {this.state.product[0].image}></img>
-            <h2 className = "card-title" style ={inlineStyle}>{this.state.product[0].name}</h2>
-            <h4 className = "card-text" style ={inlineStyle}>{ ' $' + realPrice.toFixed(2)}</h4>
-            <p className = "card-text" style ={inlineStyle}>{this.state.product[0].shortDescription}</p>
-            <div className ="card-body" >
-              <p className = "card-text">{this.state.product[0].longDescription}</p>
-            </div>
-            <button disabled ={this.state.isItInCart} onClick = {() => this.onClick() } className = "btn btn-success">Add To Cart</button>
-            <button onClick = {() => this.props.setView('catalog', {})} className = "btn btn-secondary">Go back</button>
-          </div>
+            <Card className="card" style = {cardBodyStyle}>
+              <CardImg className="card-img-top" style={imageStyle} src={this.state.product[0].image}></CardImg>
+              <CardTitle className="card-title" style={inlineStyle}>{this.state.product[0].name}</CardTitle>
+              <CardSubtitle className="card-text" style={inlineStyle}>{ ' $' + realPrice.toFixed(2)}</CardSubtitle>
+              <CardBody className="card-body" >
+                <p className ="card-text">{this.state.product[0].longDescription}</p>
+              </CardBody>
+              <Button disabled={this.state.isItInCart} onClick={()=> this.onClick()} className="btn btn-success">Add To Cart</Button>
+              <Button onClick={()=>this.props.setView('catalog', {})} className="btn btn-secondary">Go back</Button>
+          </Card>
           <Modal isOpen={this.state.modal} toggle={this.toggle}>
             <ModalHeader>Added to cart</ModalHeader>
             <ModalBody>{this.state.product[0].name} added to cart</ModalBody>
             <ModalFooter>
-              <Button onClick={() => this.clickedCart()}>Go To Cart</Button>
-              <Button onClick={() => this.clickedCatalog()}>Continue Shopping</Button>
+              <Button onClick={()=>this.clickedCart()}>Go To Cart</Button>
+              <Button onClick={()=>this.clickedCatalog()}>Continue Shopping</Button>
             </ModalFooter>
           </Modal>
         </div>
