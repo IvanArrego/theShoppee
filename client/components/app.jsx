@@ -5,8 +5,6 @@ import ProductList from './product-list-item';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-cart-summary';
-import Modal from 'react-modal';
-Modal.setAppElement('#root');
 
 export default class App extends React.Component {
   constructor(props) {
@@ -59,13 +57,14 @@ export default class App extends React.Component {
   }
   removeItem(id) {
     const cartItem = {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json' }
     };
     const cartState = [...this.state.cart];
     const updatedCart = cartState.filter(cartItems =>
       cartItems.id !== id
     );
-    fetch('/api/cart/' + id, cartItem)
+    fetch('/api/cart.php?=' + id, cartItem)
       .then(() => { this.setState({ cart: updatedCart }); });
 
   }
@@ -110,15 +109,9 @@ export default class App extends React.Component {
         <Home setView = {this.setView} click = {this.homePageClick}/>
       );
     } else if (this.state.view.name === 'catalog') {
-      const spacing = {
-        marginLeft: '50px',
-        marginRight: '50px'
-      };
       return (
         <div className='store-background'>
-          <div style={spacing}>
-            <ProductList products = {this.state.products} setView = {this.setView}/>
-          </div>
+          <ProductList products = {this.state.products} setView = {this.setView}/>
         </div>
       );
     } else if (this.state.view.name === 'details') {
