@@ -7,6 +7,8 @@ class CheckoutForm extends React.Component {
     super(props);
     this.state = {
       modal: false,
+      orderedModal: false,
+      canCheckout: false,
       name: '',
       creditCard: '',
       expiration: '',
@@ -26,6 +28,7 @@ class CheckoutForm extends React.Component {
     };
     this.deleteItem = this.deleteItem.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.toggleOrderedModal = this.toggleOrderedModal.bind(this);
     this.openModal = this.openModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,19 +47,33 @@ class CheckoutForm extends React.Component {
     this.expirationInput = this.expirationInput.bind(this);
     this.cvvValidation = this.cvvValidation.bind(this);
     this.cvvInput = this.cvvInput.bind(this);
+    this.openOrderedModal = this.openOrderedModal.bind(this);
+    this.orderedToggle = this.orderedToggle.bind(this);
 
   }
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
+
+  }
+  orderedToggle() {
+    this.toggleOrderedModal();
   }
   openModal() {
     this.setState({ modal: true });
   }
+  openOrderedModal() {
+    this.setState({ orderedModal: true });
+  }
+  toggleOrderedModal() {
+    this.setState(prevState => ({
+      orderedModal: !prevState.orderedModal
+    }));
+  }
 
   deleteItem() {
-    this.props.onDelete(this.props.id);
+    this.props.delete();
   }
   handleChange(event) {
     this.setState({
@@ -168,8 +185,10 @@ class CheckoutForm extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    this.props.order(this.state);
     this.toggle();
+    this.toggleOrderedModal();
+    this.props.order(this.state);
+    this.props.delete();
     this.setState({
       name: '',
       creditCard: '',
@@ -210,6 +229,7 @@ class CheckoutForm extends React.Component {
     let totalTaxedPrice = totalPrice + shipping;
     totalTaxedPrice = totalTaxedPrice.toFixed(2);
     totalTaxedPrice = parseFloat(totalTaxedPrice);
+    const submitBttn = (this.state.validation.validName && this.state.validation.validCC && this.state.validation.validExp && this.state.validation.validCVV && this.state.validation.validAddress && this.state.validation.Phone && this.state.validation.validEmail) === 'valid' ? <Button className="btn btn-lg btn-primary btn-block card-font" onClick={() => this.openModal()}>CHECKOUT</Button> : <Button type="button" className="btn btn-lg btn-primary btn-block card-font">Checkout</Button>;
     return (
       <React.Fragment>
         <Container className="mt-4 mb-5">
@@ -284,7 +304,7 @@ class CheckoutForm extends React.Component {
               <hr/>
               <div className="h4 card-font mb-4 text-orange">TOTAL : <span className="float-right">${totalTaxedPrice}</span></div>
               <Button className="btn btn-lg btn-secondary btn-block card-font" onClick={() => this.props.setView('cart', { })}>BACK TO CART</Button>
-              <Button className="btn btn-lg btn-primary btn-block card-font" onClick={() => this.openModal()}>CHECKOUT</Button>
+              {submitBttn}
             </Col>
           </Row>
         </Container>
@@ -317,7 +337,14 @@ class CheckoutForm extends React.Component {
           </ModalBody>
           <ModalFooter className="card-font">
             <Button color="secondary" onClick={this.toggle}>RETURN TO CHECKOUT</Button>{' '}
-            <Button color="success" onClick={this.handleSubmit}>SUBMIT ORDER</Button>
+            <Button color="success" onClick={this.orderedToggle}>SUBMIT ORDER</Button>
+          </ModalFooter>
+        </Modal>
+        <Modal isOpen={this.state.orderedModal} toggle={this.toggleOrderedModal}>
+          <ModalHeader>Thank you traveler!</ModalHeader>
+          <ModalBody>We have received your order! Please allow 5-10 business years to receive your order.</ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick = {this.handleSubmit}>Close</Button>
           </ModalFooter>
         </Modal>
       </React.Fragment>

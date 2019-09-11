@@ -1,22 +1,5 @@
 <?php
 
-// header('Content-Type: application/json');
-
-// $method = $_SERVER['REQUEST_METHOD'];
-// $item = file_get_contents('php://input');
-
-// if ($method == 'GET') {
-//   readfile('dummy-cart-items.json');
-// } else if ($method == 'POST') {
-//   http_response_code(201);
-//   print($item);
-// } else {
-//   http_response_code(404);
-//   print(json_encode([
-//     'error' => 'Not Found',
-//     'message' => "Cannot $method /api/cart.php"
-//   ]));
-// }
 require_once 'functions.php';
 require_once 'db_connection.php';
 startup();
@@ -35,7 +18,6 @@ $short_description = addslashes($itemized['shortDescription']);
 $long_description = addslashes($itemized['longDescription']);
 
 if ($method == 'GET') {
-  // readfile('dummy-cart-items.json');
   $query = "SELECT * FROM `cart`";
   $result = mysqli_query($conn, $query);
   if (!$result){
@@ -71,16 +53,10 @@ if ($method == 'GET') {
     print($id);
   }
   
-  if (empty($id)){
-    $whereClause = "";
-  } else {
-    if (is_numeric($id)){
-      $whereClause = "WHERE `id` = $id" ;
-    } else {
-      throw new Exception("id needs to be a number");
-    }
+  if (empty($id)|| !is_numeric($id) ){
+   throw new Exception("id needs to be a number");
   }
-  $query = "DELETE FROM `cart` $whereClause";
+  $query = "DELETE FROM `cart` where `id` = $id";
 
   $result = mysqli_query($conn, $query);
 

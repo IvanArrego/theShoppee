@@ -24,9 +24,6 @@ export default class Header extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink><i className="fas fa-home fa-lg pointer-hover" onClick={() => this.props.setView('home', { })}></i></NavLink>
-              </NavItem>
-              <NavItem>
                 <NavLink className="pointer-hover" onClick={() => this.props.setView('catalog', { })}><i className="fas fa-store fa-lg"></i>Catalog</NavLink>
               </NavItem>
               <NavItem>

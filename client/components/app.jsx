@@ -12,9 +12,8 @@ export default class App extends React.Component {
     this.state = {
       products: [],
       view: {
-        name: 'home',
+        name: 'catalog',
         params: {
-
         }
       },
       cart: []
@@ -24,6 +23,7 @@ export default class App extends React.Component {
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.deleteCart = this.deleteCart.bind(this);
   }
   componentDidMount() {
     this.getProducts();
@@ -64,9 +64,17 @@ export default class App extends React.Component {
     const updatedCart = cartState.filter(cartItems =>
       cartItems.id !== id
     );
-    fetch('/api/cart.php?=' + id, cartItem)
+    fetch('/api/cart.php?id=' + id, cartItem)
       .then(() => { this.setState({ cart: updatedCart }); });
 
+  }
+
+  deleteCart() {
+    const cartItem = {
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json' }
+    };
+    fetch('/api/cart-checkout.php', cartItem);
   }
   placeOrder(order) {
     let cartOrder = this.state.cart;
@@ -125,11 +133,10 @@ export default class App extends React.Component {
     } else {
       return (
         <div>
-          <CheckoutForm order ={this.placeOrder} cart = {this.state.cart} delete = {this.removeItem} items = {cartCount} products = {this.state.cart} setView = {this.setView} />
+          <CheckoutForm delete = {this.deleteCart} order ={this.placeOrder} cart = {this.state.cart} items = {cartCount} products = {this.state.cart} setView = {this.setView} />
         </div>
       );
     }
-
   }
   render() {
     const cartCount = this.state.cart.length;
