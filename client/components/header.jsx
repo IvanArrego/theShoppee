@@ -19,7 +19,7 @@ export default class Header extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand className="header-font pointer-hover noselect" onClick={() => this.props.setView('home', { })}>Shoppee</NavbarBrand>
+          <NavbarBrand className="header-font pointer-hover noselect" onClick={() => this.props.setView('catalog', { })}>Shoppee</NavbarBrand>
           <NavbarToggler onClick={this.toggle}/>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
