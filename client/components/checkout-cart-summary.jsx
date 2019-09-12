@@ -7,6 +7,7 @@ class CheckoutForm extends React.Component {
     super(props);
     this.state = {
       modal: false,
+      demoModal: true,
       orderedModal: false,
       canCheckout: false,
       name: '',
@@ -49,14 +50,21 @@ class CheckoutForm extends React.Component {
     this.cvvInput = this.cvvInput.bind(this);
     this.openOrderedModal = this.openOrderedModal.bind(this);
     this.orderedToggle = this.orderedToggle.bind(this);
+    this.demoToggle = this.demoToggle.bind(this);
+
 
   }
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
-
   }
+  demoToggle(){
+      this.setState(prevState => ({
+        demoModal: !prevState.demoModal
+      }));
+  }
+  
   orderedToggle() {
     this.toggleOrderedModal();
   }
@@ -174,10 +182,11 @@ class CheckoutForm extends React.Component {
     const { validation } = this.state;
     if (cvvRegex.test(e.target.value)) {
       validation.validCVV = 'valid';
+      this.setState({canCheckout: true});
     } else {
       validation.validCVV = 'invalid';
     }
-    this.setState({ validation });
+    this.setState({ validation });   
   }
   cvvInput(e) {
     this.handleChange(e);
@@ -229,7 +238,6 @@ class CheckoutForm extends React.Component {
     let totalTaxedPrice = totalPrice + shipping;
     totalTaxedPrice = totalTaxedPrice.toFixed(2);
     totalTaxedPrice = parseFloat(totalTaxedPrice);
-    const submitBttn = (this.state.validation.validName && this.state.validation.validCC && this.state.validation.validExp && this.state.validation.validCVV && this.state.validation.validAddress && this.state.validation.Phone && this.state.validation.validEmail) === 'valid' ? <Button className="btn btn-lg btn-primary btn-block card-font" onClick={() => this.openModal()}>CHECKOUT</Button> : <Button type="button" className="btn btn-lg btn-primary btn-block card-font">Checkout</Button>;
     return (
       <React.Fragment>
         <Container className="mt-4 mb-5">
@@ -304,7 +312,7 @@ class CheckoutForm extends React.Component {
               <hr/>
               <div className="h4 card-font mb-4 text-orange">TOTAL : <span className="float-right">${totalTaxedPrice}</span></div>
               <Button className="btn btn-lg btn-secondary btn-block card-font" onClick={() => this.props.setView('cart', { })}>BACK TO CART</Button>
-              {submitBttn}
+              <Button disabled={!this.state.canCheckout} className="btn btn-lg btn-primary btn-block card-font" onClick={() => this.openModal()}>CHECKOUT</Button>
             </Col>
           </Row>
         </Container>
@@ -345,6 +353,13 @@ class CheckoutForm extends React.Component {
           <ModalBody>We have received your order! Please allow 5-10 business years to receive your order.</ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick = {this.handleSubmit}>Close</Button>
+          </ModalFooter>
+        </Modal>
+        <Modal isOpen={this.state.demoModal} toggle={this.demoToggle}>
+          <ModalHeader>Reminder!</ModalHeader>
+          <ModalBody>Please note this is a demo site. Please do not use any real information when checking out. Thank you!</ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick = {this.demoToggle}>Close</Button>
           </ModalFooter>
         </Modal>
       </React.Fragment>
