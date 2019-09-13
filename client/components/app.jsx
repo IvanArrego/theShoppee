@@ -23,6 +23,7 @@ export default class App extends React.Component {
     this.placeOrder = this.placeOrder.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.deleteCart = this.deleteCart.bind(this);
+    this.getCartItems = this.getCartItems.bind(this);
   }
   componentDidMount() {
     this.getProducts();
@@ -106,6 +107,7 @@ export default class App extends React.Component {
     this.setState({
       view: { name: name, params: params }
     });
+    this.getCartItems();
   }
   listOrDesc() {
     const cartCount = this.state.cart.length;

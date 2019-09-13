@@ -44,7 +44,7 @@ export default class ProductDetails extends React.Component {
       return null;
     } else if (cart.length >= 1) {
       for (var i = 0; i < cart.length; i++) {
-        if (cart[i].productID === idChecked) {
+        if (cart[i].productID == idChecked) {
           this.setState({ isItInCart: true });
         }
       }
