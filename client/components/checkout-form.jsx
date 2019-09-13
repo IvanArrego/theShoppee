@@ -34,7 +34,7 @@ export default class CheckoutForm extends React.Component {
   }
   render() {
     return (
-      <form onSubmit={this.handleSubmit} onReset = {this.handleClear}>
+      <form className = "container" onSubmit={this.handleSubmit} onReset = {this.handleClear}>
         <label>
           <input className = "form-control" type="text" placeholder = "Name" name = 'name' value={this.state.name} onChange={this.handleChange}></input>
           <input className = "form-control" type="number" placeholder = "Credit Card" name = 'credit' value={this.state.credit} onChange={this.handleChange}></input>

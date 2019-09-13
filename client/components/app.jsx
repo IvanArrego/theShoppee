@@ -3,8 +3,7 @@ import Header from './header';
 import ProductList from './product-list-item';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
-import CheckoutForm from './checkout-form';
-import CartCheckoutSummary from './checkout-cart-summary';
+import CheckoutForm from './checkout-cart-summary';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -14,7 +13,6 @@ export default class App extends React.Component {
       view: {
         name: 'catalog',
         params: {
-
         }
       },
       cart: []
@@ -24,7 +22,7 @@ export default class App extends React.Component {
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.removeItem = this.removeItem.bind(this);
-
+    this.deleteCart = this.deleteCart.bind(this);
   }
   componentDidMount() {
     this.getProducts();
@@ -58,20 +56,38 @@ export default class App extends React.Component {
   }
   removeItem(id) {
     const cartItem = {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json' }
     };
     const cartState = [...this.state.cart];
     const updatedCart = cartState.filter(cartItems =>
       cartItems.id !== id
     );
-    fetch('/api/cart/' + id, cartItem)
+    fetch('/api/cart.php?id=' + id, cartItem)
       .then(() => { this.setState({ cart: updatedCart }); });
-
+  }
+  deleteCart() {
+    const cartItem = {
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json' }
+    };
+    fetch('/api/cart-checkout.php', cartItem);
   }
   placeOrder(order) {
+    let cartOrder = this.state.cart;
+    let orderTransaction = {
+      name: order.name,
+      address: order.address,
+      email: order.email,
+      phone: order.phone,
+      creditCard: order.creditCard,
+      cvv: order.cvv,
+      expiration: order.expiration,
+      cart: JSON.stringify(cartOrder)
+    };
     const checkoutCart = {
       method: 'POST',
-      body: JSON.stringify({ cart: this.state.cart, name: order.name, address: order.address, creditCard: order.creditCard }),
+      body: JSON.stringify(orderTransaction),
       headers: { 'Content-type': 'application/json' }
     };
     fetch('/api/orders.php', checkoutCart)
@@ -93,14 +109,19 @@ export default class App extends React.Component {
   }
   listOrDesc() {
     const cartCount = this.state.cart.length;
-
-    if (this.state.view.name === 'catalog') {
+    if (this.state.view.name === 'home') {
       return (
-        <ProductList products = {this.state.products} setView = {this.setView}/>
+        <Home setView = {this.setView} click = {this.homePageClick}/>
+      );
+    } else if (this.state.view.name === 'catalog') {
+      return (
+        <div className='store-background'>
+          <ProductList products = {this.state.products} setView = {this.setView}/>
+        </div>
       );
     } else if (this.state.view.name === 'details') {
       return (
-        <ProductDetails setView = {this.setView} viewId = {this.state.view.params.id} addProduct = {this.addToCart} />
+        <ProductDetails setView = {this.setView} viewId = {this.state.view.params.id} addProduct = {this.addToCart} cart = {this.state.cart} />
       );
     } else if (this.state.view.name === 'cart') {
       return (
@@ -109,21 +130,18 @@ export default class App extends React.Component {
     } else {
       return (
         <div>
-          <CartCheckoutSummary delete = {this.removeItem} items = {cartCount} products = {this.state.cart} setView = {this.setView} />
-          <CheckoutForm items = {cartCount} products = {this.state.cart} cart = {this.state.cart} setView = {this.setView} order ={this.placeOrder} />
+          <CheckoutForm delete = {this.deleteCart} order ={this.placeOrder} cart = {this.state.cart} items = {cartCount} products = {this.state.cart} setView = {this.setView} />
         </div>
       );
     }
-
   }
   render() {
     const cartCount = this.state.cart.length;
     return (
-      <div className="container">
+      <div >
         <Header items = {cartCount} setView = {this.setView}/>
         <this.listOrDesc />
       </div>
-
     );
   }
 }

@@ -27,6 +27,7 @@ module.exports = {
       }
     ]
   },
+
   devtool: 'source-map',
   devServer: {
     host: '0.0.0.0',
@@ -35,11 +36,10 @@ module.exports = {
     historyApiFallback: true,
     watchContentBase: true,
     stats: 'minimal',
-    proxy: {
-      '/api': {
-        changeOrigin: true,
-        target: 'http://localhost/wicked-sales/server/public'
-      }
-    }
+    proxy: [{
+      context: ['/api', '/images'],
+      changeOrigin: true,
+      target: 'http://localhost/wicked-sales/server/public'
+    }]
   }
 };
