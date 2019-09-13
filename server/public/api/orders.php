@@ -1,5 +1,4 @@
 <?php
-
 require_once 'functions.php';
 require_once 'db_connection.php';
 startup();
@@ -24,9 +23,7 @@ if(!$result){
   throw new Exception( mysqli_error($conn) );
 }
 
-
 $json_output = json_encode($output);
 print_r($json_output);
-
 
 ?>

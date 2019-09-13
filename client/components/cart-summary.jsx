@@ -32,7 +32,6 @@ class CartSummaryItem extends React.Component {
 function CartSummary(props) {
   if (props.items >= 1) {
     const cartItems = props.products.map(prod => {
-
       return (
         <div key = {prod.id}>
           <CartSummaryItem
@@ -45,13 +44,10 @@ function CartSummary(props) {
             onDelete = {props.delete}
           />
         </div>
-
       );
-
     });
     let itemTotal = 0;
     for (let item of cartItems) {
-
       let prices = parseInt(item.props.children.props.price);
       itemTotal += prices;
     }
@@ -122,7 +118,5 @@ function CartSummary(props) {
       </Container>
     );
   }
-
 }
-
 export default CartSummary;

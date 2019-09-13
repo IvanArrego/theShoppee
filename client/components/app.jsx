@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from './header';
-import Home from './home-page';
 import ProductList from './product-list-item';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
@@ -66,9 +65,7 @@ export default class App extends React.Component {
     );
     fetch('/api/cart.php?id=' + id, cartItem)
       .then(() => { this.setState({ cart: updatedCart }); });
-
   }
-
   deleteCart() {
     const cartItem = {
       method: 'DELETE',
@@ -145,7 +142,6 @@ export default class App extends React.Component {
         <Header items = {cartCount} setView = {this.setView}/>
         <this.listOrDesc />
       </div>
-
     );
   }
 }

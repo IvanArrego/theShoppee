@@ -26,7 +26,6 @@ export default class ProductDetails extends React.Component {
       })
       .then(() => this.cartCheck(this.state.product[0].id, this.props.cart));
   }
-
   componentDidMount() {
     this.getProductID();
   }
@@ -35,13 +34,11 @@ export default class ProductDetails extends React.Component {
       modal: !prevState.modal
     }));
   }
-
   onClick() {
     this.props.addProduct(this.state.product);
     this.toggle();
     this.setState({ isItInCart: true });
   }
-
   cartCheck(idChecked, cart) {
     if (!cart) {
       return null;
@@ -61,7 +58,6 @@ export default class ProductDetails extends React.Component {
     this.toggle();
     this.props.setView('catalog', {});
   }
-
   render() {
     if (this.state.product == null) {
       return null;
