@@ -11,18 +11,6 @@ if($method == 'DELETE'){
     if (!$conn){
       throw new Exception(mysqli_connect_error($conn));
     };
-  
-    // if(empty($_GET['id'])){
-    //   $id = '';
-    //   print($id);
-    // } else {
-    //   $id = $_GET['id'];
-    //   print($id);
-    // }
-    
-    // if (empty($id)|| !is_numeric($id) ){
-    //  throw new Exception("id needs to be a number");
-    // }
     $query = "DELETE FROM `cart`";
   
     $result = mysqli_query($conn, $query);
