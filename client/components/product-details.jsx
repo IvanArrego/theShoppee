@@ -40,8 +40,6 @@ export default class ProductDetails extends React.Component {
     this.setState({ isItInCart: true });
   }
   cartCheck(idChecked, cart) {
-    console.log(idChecked);
-    console.log(cart);
     if (!cart) {
       return null;
     } else if (cart.length >= 1) {
