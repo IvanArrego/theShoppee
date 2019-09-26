@@ -331,9 +331,7 @@ class CheckoutForm extends React.Component {
                 </Col>
                 <Col>
                   <div className="card-font">2. BILLING</div>
-                  <div className="description-font">CC #: {this.state.creditCard}</div>
-                  <div className="description-font">Exp.: {this.state.expiration}</div>
-                  <div className="description-font">CVV: {this.state.cvv}</div>
+                  <div className="description-font">CC #: ***********{this.state.creditCard[12]}{this.state.creditCard[13]}{this.state.creditCard[14]}{this.state.creditCard[15]}</div>
                 </Col>
               </Row>
             </Container>
