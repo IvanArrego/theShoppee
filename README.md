@@ -46,7 +46,7 @@ Try the application live at https://wicked-sales.ivanarregoitia.com/
    ```
    sudo service apache2 restart
    ```
-7. Test that the virtual host is working by sending an HTTP request to `http://wicked-sales.localhost`. You should receive `200 OK` response containing an HTML document with the title of "Wicked Sales".
+7. Test that the virtual host is working by sending an HTTP request to `http://wicked-sales.localhost`. You should receive `200 OK` response containing an HTML document with the title of "The Shoppee".
    ```
    http get http://wicked-sales.localhost
    ```
