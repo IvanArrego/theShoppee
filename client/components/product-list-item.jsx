@@ -30,11 +30,22 @@ export default class ProductList extends React.Component {
       modal: true
     };
     this.toggle = this.toggle.bind(this);
+    this.firstVisitCheck = this.firstVisitCheck.bind(this);
+  }
+  componentWillMount() {
+    this.firstVisitCheck();
   }
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
+    sessionStorage.setItem('visit', 'visited');
+  }
+  firstVisitCheck() {
+    let sessionCheck = sessionStorage.getItem('visit');
+    if (sessionCheck === 'visited') {
+      this.setState({ modal: false });
+    }
   }
   render() {
     let message = {
@@ -68,7 +79,7 @@ export default class ProductList extends React.Component {
         </Row>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>Welcome traveler!</ModalHeader>
-          <ModalBody>Please note this is a demo site. Please do not use any real information when checking out. Thank you!</ModalBody>
+          <ModalBody>Please note this is a demo site. Please do not use any real information when checking out. Please acknowledge this by clicking the Close button or clicking on the screen. Thank you!</ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick = {this.toggle}>Close</Button>
           </ModalFooter>
