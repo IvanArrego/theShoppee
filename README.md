@@ -22,6 +22,8 @@ Try the application live at https://wicked-sales.ivanarregoitia.com/
 - User can view their cart, delete an item from the cart, and continue to the checkout form
 - User can complete their order by filling out the checkout form
 
+## Preview
+![Shoppee Demo](./server/public/images/shoppee.gif)
 
 ## Getting Started
 
@@ -55,5 +57,4 @@ Try the application live at https://wicked-sales.ivanarregoitia.com/
 - `dev` - Start Webpack Dev Server at port `localhost:3000`
 - `build` - Run Webpack to build the React client into `server/public`.
 
-## Preview
-![Shoppee Demo](./server/public/images/shoppee.gif)
+
