@@ -164,7 +164,7 @@ class CheckoutForm extends React.Component {
   }
 
   expirationValidation(e) {
-    const expRegex = /[0-9]{2}\/?([0-9]{4}|[0-9]{2})$/;
+    const expRegex = /[0-9]{2}\/([0-9]{4}|[0-9]{2})$/;
     const { validation } = this.state;
     if (expRegex.test(e.target.value)) {
       validation.validExp = 'valid';
@@ -264,7 +264,7 @@ class CheckoutForm extends React.Component {
                     <FormFeedback invalid>Please enter a valid e-mail address.</FormFeedback>
                   </InputGroup>
                   <InputGroup>
-                    <Input placeholder="Phone Number" name="phone" type="number" value={this.state.phone} onChange={this.phoneInput} valid={ this.state.validation.validPhone === 'valid' } invalid={ this.state.validation.validPhone === 'invalid' }/>
+                    <Input placeholder="Phone Number" name="phone" type="text" maxLength="10" value={this.state.phone} onChange={this.phoneInput} valid={ this.state.validation.validPhone === 'valid' } invalid={ this.state.validation.validPhone === 'invalid'}/>
                     <FormFeedback invalid>Please enter a valid 10-digit phone number.</FormFeedback>
                   </InputGroup>
                 </CardBody>
@@ -277,15 +277,15 @@ class CheckoutForm extends React.Component {
                     <span className="font-weight-bold">Note: This is a demo please do not input actual billing or CC information</span>
                   </ReactTooltip>
                   <InputGroup className="mb-1">
-                    <Input placeholder="Credit Card No." name="creditCard" type="number" value={this.state.creditCard} onChange={this.creditInput} valid={ this.state.validation.validCC === 'valid' } invalid={ this.state.validation.validCC === 'invalid' } />
+                    <Input placeholder="Credit Card No." name="creditCard" type="text" maxLength="16" value={this.state.creditCard} onChange={this.creditInput} valid={ this.state.validation.validCC === 'valid' } invalid={ this.state.validation.validCC === 'invalid' } />
                     <FormFeedback invalid>Please enter a valid 16-digit credit card number (no dashes).</FormFeedback>
                   </InputGroup>
                   <InputGroup className="mb-1">
-                    <Input placeholder="Expiration Date (ex. 01/20 or 1/2020)" name="expiration" value={this.state.expiration} onChange={this.expirationInput} valid={ this.state.validation.validExp === 'valid' } invalid={ this.state.validation.validExp === 'invalid' }/>
+                    <Input placeholder="Expiration Date (ex. 01/20 or 1/2020)" type="text" maxLength="7" name="expiration" value={this.state.expiration} onChange={this.expirationInput} valid={ this.state.validation.validExp === 'valid' } invalid={ this.state.validation.validExp === 'invalid' }/>
                     <FormFeedback invalid>Please enter a valid expiration date (mm/yy or mm/yyyy).</FormFeedback>
                   </InputGroup>
                   <InputGroup className="">
-                    <Input placeholder="CVV" name="cvv" type="number" value={this.state.cvv} onChange={this.cvvInput} valid={ this.state.validation.validCVV === 'valid' } invalid={ this.state.validation.validCVV === 'invalid' } />
+                    <Input placeholder="CVV" name="cvv" type="text" maxLength="4" value={this.state.cvv} onChange={this.cvvInput} valid={ this.state.validation.validCVV === 'valid' } invalid={ this.state.validation.validCVV === 'invalid' } />
                     <FormFeedback invalid>Please enter a valid 3 or 4 digit CVV.</FormFeedback>
                   </InputGroup>
                 </CardBody>
