@@ -56,4 +56,4 @@ Try the application live at https://wicked-sales.ivanarregoitia.com/
 - `build` - Run Webpack to build the React client into `server/public`.
 
 ## Preview
-![Shoppee Demo](./server/api/public/images/shoppee.gif)
+![Shoppee Demo](./server/public/api/images/shoppee.gif)
