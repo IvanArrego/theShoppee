@@ -27,31 +27,26 @@ Try the application live at https://wicked-sales.ivanarregoitia.com/
 
 ## Getting Started
 
-1. Fork this repository to your GitHub account and clone the fork to your local directory.
-2. Check out a `dev` branch and push it to `origin`.
-    ```
-    git push origin dev
-    ```
-3. Install all dependencies in `package.json` with NPM.
-    ```
-    npm install
-    ```
-4. Add the `wicked-sales.localhost` site to Apache by copying the provided virtual host configuration in the `server` directory to `/etc/apache2/sites-available`.
-    ```
-    sudo cp server/wicked-sales.localhost.conf /etc/apache2/sites-available
-    ```
-5. Enable the `wicked-sales.locahost` site.
-   ```
-   sudo a2ensite wicked-sales.localhost
-   ```
-6. Restart the Apache web server.
-   ```
-   sudo service apache2 restart
-   ```
-7. Test that the virtual host is working by sending an HTTP request to `http://wicked-sales.localhost`. You should receive `200 OK` response containing an HTML document with the title of "The Shoppee".
-   ```
-   http get http://wicked-sales.localhost
-   ```
+1. Fork and clone from this repository onto your local machine.
+ ```
+ $ git clone https://github.com/[user_name]/theShoppe.git
+  ```   
+2. In your terminal, navigate into the cloned directory and install the required dependencies
+```
+$ npm install
+```
+3. Create a database titled shoppee in phpMyAdmin and import the shoppee.sql file
+
+4. Ensure that the Apache service is installed and running
+
+5. Initiate the dev server
+```
+$ npm run dev
+```
+6. In your local browser go to ```localhost:3000```
+
+7. The Shoppee is ready to go!
+
 ## NPM Scripts
 
 - `dev` - Start Webpack Dev Server at port `localhost:3000`
