@@ -36,7 +36,7 @@ class CartSummaryItem extends React.Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader className="card-font" toggle={this.toggle}><i className="fas fa-exclamation-circle text-warning"></i> FINAL CONFIRMATION</ModalHeader>
           <ModalBody>
-            <div className="container mb-3 text-center description-font font-weight-bold">Are you sure you would like to remove this from cart?</div>
+            <div className="container mb-3 text-center description-font font-weight-bold">Are you sure you would like to remove {this.props.name} from cart?</div>
           </ModalBody>
           <ModalFooter className="card-font">
             <Button color="secondary" onClick={this.toggle}>No</Button>{' '}
